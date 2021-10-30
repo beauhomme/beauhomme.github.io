@@ -3,7 +3,7 @@ layout: post
 title: "Purchase Card Data Analysis"
 subtitle: "City of Toronto's monthly reports of its employee's expense card transactions"
 date: 2021-10-15 10:45:13 -0400
-background: '/img/toronto_city.jpg'
+background: '/img/posts/purchase_cards/toronto_city.jpg'
 ---
 
 ## TASK 1 – Obtain and Clean Data Clone the Repository
@@ -30,7 +30,7 @@ The Transaction table has one candidate key `Batch-ID` (which is therefore the p
 To satisfy the **Third Normal Form**, there shall be no transitive dependences on non-prime attributes, in this case the table or data violates this form {Merchant Type, Merchant Description} depend on the Merchant Name, {GL Description} on GL Account, {Cost Center Description} on Cost Center No. We take care of this by placing the sets in their own respective tables and have a foreign key relationship on them.
 
 Hence our Data Model ERD looks like this
-![Pcard ERD ](/img/pcard_erd.png)
+![Pcard ERD ](/img/posts/purchase_cards/pcard_erd.png)
 
 ## Task 3 - Data Pipeline and Warehouse
 
@@ -42,7 +42,7 @@ Using a data ETL/pipeline and Orchestrator tool – Airflow and SSIS, I defined 
 To preserve history, we will implement a slowly changing dimension (SCD – Type 2) across the dimensions. Using the DimDivision (Division Dimension) table on the warehouse. The primary key division_id which is also the surrogate key is an identity property which will generate a new value for every row. Let’s imagine we’d like to keep history on the purchases authorized by the division supervisor (represented by the `division_sup_id`). Any time a new supervisor is assigned to the division, we don’t update the row, but insert a new record. Using the start_date and end_date fields we would track when a record was valid in time. A new surrogate key (`division_id`) is generated, but the business key – `division_name` remains the same. when a fact table is loaded, a lookup will be done on the `DimDivision` table, depending on the flag column (IsCurrent) the current attributes of the row are returned. Hence, we are able to track data lineage and history. For this data warehouse, the schema we have implemented is a STAR – Schema to keep the structure simple and flexible.
 
 Therefore our Data warehouse Model ERD looks like this
-![Pcard DW ERD ](/img/pcardDW_erd.png)
+![Pcard DW ERD ](/img/posts/purchase_cards/pcardDW_erd.png)
 
 
 ## Task 4 – Visualization
