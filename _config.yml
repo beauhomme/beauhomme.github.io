@@ -9,11 +9,11 @@ url:                "https://beauhomme.github.io"
 twitter_username:   dawn
 github_username:    beauhomme
 facebook_username:  dawn
-instagram_username:  dawn
+instagram_username:  dawncom
 linkedin_username:  dawn
 
 # Add your google-analytics ID here to activate google analytics
-google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
+google_analytics:   G-46JRFZYYBT # out your google-analytics code
 
 # Build settings
 markdown:           kramdown
